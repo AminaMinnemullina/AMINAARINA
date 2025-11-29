@@ -1,12 +1,12 @@
 public class Channel {
 
-    private int id;
+    private String id;
     private String name;
     private String description;
     private User[] members;
     private int memberCount;
 
-    public Channel(int id, String name, String description) {
+    public Channel(String id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
