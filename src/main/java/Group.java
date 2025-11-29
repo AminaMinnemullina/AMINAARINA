@@ -1,31 +1,32 @@
 public class Group {
 
-    private int id;
+    private String id;
     private String name;
     private User[] members;
     private int memberCount;
+    private Message[] messages;
 
-    public Group(int id, String name) {
+    public Group(String id, String name) {
         this.id = id;
         this.name = name;
         this.members = new User[10];
-        this.memberCount = 0; // сначала никого нет
+        this.memberCount = 0;
+        this.messages = new Message[0];
     }
 
     public void addMember(User user) {
-        int number = members.length;
-        if (memberCount < number) {
+        if (memberCount < members.length) {
             members[memberCount] = user;
             memberCount++;
         } else {
-            System.out.println("группа полная");
+            System.out.println("Группа полная");
         }
     }
 
     public void removeMember(User user) {
         for (int i = 0; i < memberCount; i++) {
             if (members[i] == user) {
-                members[i] = members[memberCount - 1]; // последний теперь присоединившийся
+                members[i] = members[memberCount - 1]; // последний вместо удаленного
                 members[memberCount - 1] = null;
                 memberCount--;
                 break;
@@ -40,6 +41,26 @@ public class Group {
             currentMembers[i] = members[i];
         }
         return currentMembers;
+    }
+    public void printMembers() {
+        System.out.println("Количество участников: " + memberCount);
+        for (int i = 0; i < memberCount; i++) {
+            System.out.print(members[i] + ", ");
+        }
+        System.out.println();
+    }
+    public void printMessages() {
+        for (int i = 0; i < messages.length; i++) {
+            Message message = messages[i];
+            System.out.println(message.fromUser() + ", " + message.toUser() + ": " + message.text());
+        }
+    }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     // инфа о группе
