@@ -1,10 +1,10 @@
 import java.time.format.DateTimeFormatter;
 
 public class Message {
-    private User toUser;
-    private User fromUser;
-    private String text;
-    private String date;
+    public User toUser;
+    public User fromUser;
+    public String text;
+    public String date;
 
     public Message(User fromUser, User toUser, String text) {
         this.fromUser = fromUser;
