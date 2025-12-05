@@ -2,48 +2,78 @@ public class Channel {
 
     private String id;
     private String name;
-    private String description;
-    private User[] members;
-    private int memberCount;
+    private User[] subscribers;
+    private User creator;
+    private int subscriberCount;
+    private Message[] channelMessages = new Message[100000];
+    private int messageCount = 0;
 
-    public Channel(String id, String name, String description) {
+    public Channel(String id, String name, User creator) {
         this.id = id;
         this.name = name;
-        this.description = description;
-        this.members = new User[10];
-        this.memberCount = 0;
+        this.subscribers = new User[10];
+        this.creator = creator;
+        this.subscribers[0] = creator;
+        this.subscriberCount = 1;
     }
 
-    public void addMember(User user) {
-        int number = members.length;
-        if (memberCount < number) {
-            members[memberCount] = user;
-            memberCount++;
+    public void addSubscriber(User user) {
+        int number = subscribers.length;
+        if (subscriberCount < number) {
+            subscribers[subscriberCount] = user;
+            subscriberCount++;
         } else {
             System.out.println("Канал полон");
         }
     }
-
-    public void removeMember(User user) {
-        for (int i = 0; i < memberCount; i++) {
-            if (members[i].equals(user)) {
-                for (int j = i; j < memberCount - 1; j++) {
-                    members[j] = members[j + 1];
-                }
-                members[memberCount - 1] = null;
-                memberCount--;
-                return;
+    public void removeSubscriber(User user) {
+        for (int i = 0; i < subscriberCount; i++) {
+            if (subscribers[i].equals(user)) {
+                subscribers[i] = subscribers[subscriberCount - 1];
+                subscribers[subscriberCount - 1] = null;
+                subscriberCount--;
+                break;
             }
         }
-        System.out.println("Участник не найден");
     }
 
-    public User[] getMembers() {
-        User[] currentMembers = new User[memberCount];
-        for (int i = 0; i < memberCount; i++) {
-            currentMembers[i] = members[i];
+    public User[] getSubscribers() {
+        User[] currentSubscribers = new User[subscriberCount];
+        for (int i = 0; i < subscriberCount; i++) {
+            currentSubscribers[i] = subscribers[i];
         }
-        return currentMembers;
+        return currentSubscribers;
+    }
+    public void addMessage(Message message) {
+        if (messageCount < channelMessages.length) {
+            channelMessages[messageCount] = message;
+            messageCount++;
+        }
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Message[] getMessages() {
+        return channelMessages;
+    }
+
+    public int getMessageCount() {
+        return messageCount;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public int getSubscriberCountCount() {
+        return subscriberCount;
     }
 }
 
