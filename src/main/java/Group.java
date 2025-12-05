@@ -13,8 +13,8 @@ public class Group {
         this.name = name;
         this.members = new User[10];
         this.admin = admin;
-        this.members[0] = admin;//админ будет высвечиваться первым
-        this.memberCount = 0;
+        this.members[0] = admin; //админ будет высвечиваться первым
+        this.memberCount = 1; //админ
     }
 
     public void addMember(User user) {
@@ -28,8 +28,8 @@ public class Group {
 
     public void removeMember(User user) {
         for (int i = 0; i < memberCount; i++) {
-            if (members[i] == user) {
-                members[i] = members[memberCount - 1]; // последний вместо удаленного
+            if (members[i].equals(user)) {
+                members[i] = members[memberCount - 1]; //заменяем найденный на последнего
                 members[memberCount - 1] = null;
                 memberCount--;
                 break;
@@ -52,6 +52,10 @@ public class Group {
         }
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -68,7 +72,7 @@ public class Group {
         return admin;
     }
 
-    public User[] members(){
-        return members;
+    public int getMemberCount() {
+        return memberCount;
     }
 }
