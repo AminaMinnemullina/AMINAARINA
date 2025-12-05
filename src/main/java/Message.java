@@ -38,9 +38,9 @@ public class Message {
     @Override
     public String toString() {
         return "от: " + fromUser.getName() +
-                "кому: " + receiver +
-                "текст: " + message +
-                "дата:" + date +
-                "время:" + time;
+                " кому: " + receiver +
+                " текст: " + message +
+                " дата: " + date +
+                " время: " + time;
     }
 }

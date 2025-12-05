@@ -1,7 +1,4 @@
-import java.util.List;
-import java.util.ArrayList;
 public class Main {
-    private static final List<Message> messages = new ArrayList<>();
     public static void main(String[] args) {
 
         User[] users = new User[4];
@@ -10,19 +7,32 @@ public class Main {
         users[2] = new User("Богдаша", "123");
         users[3] = new User("Айгизя", "456");
 
+        users[0].sendMessage(users[1], "Приветик! Как дела?", "27.10.25", "10:03");
+        users[1].sendMessage(users[0], "Привет, хорошо. Ты как?", "27.10.25", "10:06");
+        users[3].sendMessage(users[0], "Ты посмотрела новые серии осд?", "31.11.25", "19:27");
+        users[2].sendMessage(users[3], "Привет, что задали по иип?", "6.12.25", "14:12");
+
+
         System.out.println("Пользователи: ");
         for (User user : users) {
             System.out.println(user.toString());
 
-            sendMessage(users[0], users[1], "Привет!");
-            sendMessage(users[2], users[3], "Как дела?");
-            sendMessage(users[1], users[0], "Что задали по проге?");
-
         }
-    }
-    public static void sendMessage(User fromUser, User toUser, String text) {
-        Message message = new Message(fromUser, toUser, text);
-        messages.add(message);
+
+        for (int i = 0; i < users.length; i++) {
+            Message[] userMessages = users[i].getMessages();
+            int messageCount = users[i].getMessageCount();
+
+            if (messageCount > 0) {
+                System.out.println("ЛС пользователя " + users[i].getName() + ":");
+
+                for (int j = 0; j < messageCount; j++) {
+                    if (userMessages[j] != null) {
+                    System.out.println(userMessages[j]);
+                    }
+                }
+            }
+        }
     }
 }
 

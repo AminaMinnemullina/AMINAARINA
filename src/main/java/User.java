@@ -41,6 +41,11 @@ public class User {
         }
     }
 
+    @Override
+    public String toString() {
+        return ("Имя: " + getName() + ", ID: " + getId());
+
+    }
 
     public Message[] getMessages() {
         return messages;
