@@ -3,15 +3,18 @@ public class Group {
     private String id;
     private String name;
     private User[] members;
+    private User admin;
     private int memberCount;
-    private Message[] messages;
+    private Message[] groupMessages = new Message[100000];
+    private int messageCount = 0;
 
-    public Group(String id, String name) {
+    public Group(String id, String name, User admin) {
         this.id = id;
         this.name = name;
         this.members = new User[10];
+        this.admin = admin;
+        this.members[0] = admin;//админ будет высвечиваться первым
         this.memberCount = 0;
-        this.messages = new Message[0];
     }
 
     public void addMember(User user) {
@@ -34,7 +37,6 @@ public class Group {
         }
     }
 
-    // новый массив
     public User[] getMembers() {
         User[] currentMembers = new User[memberCount];
         for (int i = 0; i < memberCount; i++) {
@@ -42,43 +44,31 @@ public class Group {
         }
         return currentMembers;
     }
-    public void printMembers() {
-        System.out.println("Количество участников: " + memberCount);
-        for (int i = 0; i < memberCount; i++) {
-            System.out.print(members[i] + ", ");
-        }
-        System.out.println();
-    }
-    public void printMessages() {
-        for (int i = 0; i < messages.length; i++) {
-            Message message = messages[i];
-            System.out.println(message.fromUser() + ", " + message.toUser() + ": " + message.text());
+
+    public void addMessage(Message message) {
+        if (messageCount < groupMessages.length) {
+            groupMessages[messageCount] = message;
+            messageCount++;
         }
     }
+
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Message[] getMessages() {
+        return groupMessages;
     }
 
-    // инфа о группе
-    public class Info {
-        private StringBuilder stringBuilder;//класс для аппенда
+    public int getMessageCount() {
+        return messageCount;
+    }
 
-        public Info() {
-            stringBuilder = new StringBuilder();
-        }
+    public User getAdmin() {
+        return admin;
+    }
 
-        public Info append(String str) {
-            stringBuilder.append(str);
-            return this;
-        }
-
-        @Override
-        public String toString() {
-            return stringBuilder.toString();
-        }
+    public User[] members(){
+        return members;
     }
 }
