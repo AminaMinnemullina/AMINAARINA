@@ -34,6 +34,22 @@ public class User {
         toUser.receiveMessage(message);
     }
 
+
+    public void sendGroupMessage(Group group, String text, String date, String time) {
+        Message message = new Message(this, null, text, time, date);
+        group.addMessage(message);
+    }
+
+
+    public void sendChannelMessage(Channel channel, String text, String date, String time) {
+        if (channel.getCreator() != this) {
+            System.out.println("Только создатель канала имеет право отправлять сообщения.");
+            return;
+        }
+        Message message = new Message(this, null, text, time, date);
+        channel.addMessage(message);
+    }
+
     public void receiveMessage(Message message) {
         if (messageCount < messages.length) {
             messages[messageCount] = message;
